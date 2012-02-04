@@ -1,0 +1,13 @@
+Package: r3js
+Title: Binding for Three.js
+Version: 0.1.0
+Author: Kohske Takahashi <takahashi.kohske@gmail.com>
+Maintainer: Kohske Takahashi <takahashi.kohske@gmail.com>
+Description: binding for Three.js
+Depends:
+    R (>= 2.14.1)
+Imports:
+    rjson
+License: MIT
+Collate:
+    'r3js.r'
