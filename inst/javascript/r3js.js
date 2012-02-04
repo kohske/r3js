@@ -16,7 +16,8 @@ function init() {
 
     scene = new THREE.Scene();
 
-    radius = r3jsdata.camera.radius;
+    if (r3jsdata.camera && r3jsdata.camera.radius) 
+	radius = r3jsdata.camera.radius;
 
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
     camera.position.x = radius * Math.sin( theta * Math.PI / 360 ) * Math.cos( phi * Math.PI / 360 );
@@ -33,16 +34,19 @@ function init() {
 				   new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true } )) );
 
     if (r3jsdata.options.axisline) {
+	var origin = new THREE.Vertex(new THREE.Vector3(0,0,0));
 	var axisx = new THREE.Geometry();
-	axisx.vertices.push(  new THREE.Vertex( new THREE.Vector3(-1,0,0)));
-	axisx.vertices.push(  new THREE.Vertex( new THREE.Vector3(1,0,0)));
+	axisx.vertices.push(origin);
+	axisx.vertices.push(new THREE.Vertex( new THREE.Vector3(1,0,0)));
 	scene.add(new THREE.Line( axisx, new THREE.LineBasicMaterial( { color: 0xff0000, opacity: 1, linewidth: 5} )));
+
 	var axisy = new THREE.Geometry();
-	axisy.vertices.push(  new THREE.Vertex( new THREE.Vector3(0,-1,0)));
-	axisy.vertices.push(  new THREE.Vertex( new THREE.Vector3(0,1,0)));
+	axisy.vertices.push(origin);
+	axisy.vertices.push(new THREE.Vertex( new THREE.Vector3(0,1,0)));
 	scene.add(new THREE.Line( axisy, new THREE.LineBasicMaterial( { color: 0x00ff00, opacity: 1, linewidth: 5} )));
+
 	var axisz = new THREE.Geometry();
-	axisz.vertices.push(  new THREE.Vertex( new THREE.Vector3(0,0,-1)));
+	axisz.vertices.push(origin);
 	axisz.vertices.push(  new THREE.Vertex( new THREE.Vector3(0,0,1)));
 	scene.add(new THREE.Line( axisz, new THREE.LineBasicMaterial( { color: 0x0000ff, opacity: 1, linewidth: 5} )));
     }

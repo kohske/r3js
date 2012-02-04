@@ -1,5 +1,6 @@
 
 col2num <- function(x) as.numeric(sub("#", "0x", x))
+
 #' @export
 r3js_sphere <- function(x, y, z, r = 0.02, col = rgb(1, 1, 0), alpha = 1) {
   n <- length(x)
@@ -42,14 +43,17 @@ r3js_add <- function(obj, value) {
 
 #' @export
 r3js_new <- function(xlim = c(0, 1), ylim = c(0, 1), zlim = c(0, 1), values = NULL) {
-  list(xlim = xlim, ylim = ylim, values = values)
+  list(camera = list(),
+       options = list(
+         axisbox = FALSE,
+         axisline = TRUE),
+       xlim = xlim, ylim = ylim, values = values)
 }
 
 #' generate all-in-one html file
 #'
 #' @export
 #' @examples
-#' .libPaths(dirname(as.package("r3js")$path))
 #' 
 #' obj <- r3js_new()
 #' 
@@ -64,8 +68,9 @@ r3js_new <- function(xlim = c(0, 1), ylim = c(0, 1), zlim = c(0, 1), values = NU
 #' y <- seq(0, 1, 0.01)
 #' x <- cos(y*50) / 2 + 0.5
 #' z <- sin(y*50) / 2 + 0.5
-#' 
-#' obj <- r3js_add(obj, r3js_line(x, y, z, lwd = 5, alpha = 0.3))
+#' N <- length(y)
+#' col <- rgb(runif(N), runif(N), runif(N))
+#' obj <- r3js_add(obj, r3js_line(x, y, z, lwd = 5, alpha = 0.7, col = col))
 #' 
 #' r3js_gen(obj, browse = TRUE)
 r3js_gen <- function(obj, name = "r3js", dir = tempdir(), browse = TRUE) {

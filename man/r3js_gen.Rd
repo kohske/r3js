@@ -9,8 +9,6 @@
   generate all-in-one html file
 }
 \examples{
-.libPaths(dirname(as.package("r3js")$path))
-
 obj <- r3js_new()
 
 N <- 20
@@ -24,8 +22,9 @@ obj <- r3js_add(obj, r3js_sphere(x, y, z, r = r, col = col, alpha = 0.5))
 y <- seq(0, 1, 0.01)
 x <- cos(y*50) / 2 + 0.5
 z <- sin(y*50) / 2 + 0.5
-
-obj <- r3js_add(obj, r3js_line(x, y, z, lwd = 5, alpha = 0.3))
+N <- length(y)
+col <- rgb(runif(N), runif(N), runif(N))
+obj <- r3js_add(obj, r3js_line(x, y, z, lwd = 5, alpha = 0.7, col = col))
 
 r3js_gen(obj, browse = TRUE)
 }
